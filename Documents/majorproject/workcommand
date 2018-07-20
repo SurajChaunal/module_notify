@@ -1,0 +1,53 @@
+//starting cluster
+/usr/local/hadoop-2.7.3/sbin/start-dfs.sh
+/usr/local/hadoop-2.7.3/sbin/start-yarn.sh
+
+
+//file copy to hdfs
+/usr/local/hadoop-2.7.3/bin/hadoop fs -copyFromLocal largegenome.txt /user/hduser/word/input/largegenome.txt
+
+//executing on python
+cat file /home/hduser/mapper.py | sort -k1,1 | /home/hduser/reducer.py
+
+//deleting from file system
+bin/hadoop fs -rm -r 
+
+
+//creating jar file
+$ bin/hadoop com.sun.tools.javac.Main WordCount.java
+$ jar cf wc.jar WordCount*.class
+
+//executing jar file
+bin/hadoop jar ~/word/wc.jar WordCount word/input word/output/out1
+
+//checking output
+ bin/hadoop fs -cat word/output/out/part-r-00000
+
+//mapreduce python 
+bin/hadoop jar /usr/local/hadoop-2.7.3/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -file mapper.py -mapper mapper.py -file reducer.py -reducer reducer.py -input word/input/genomeclean.txt -output word/output/def
+
+bin/hadoop jar /usr/local/hadoop-2.7.3/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -file ~/test1.py -mapper ~/mapper.py -file ~/reducer.py -reducer ~/reducer.py -input word/input/largegenome.txt -output word/large
+
+*/
+//stopping cluster
+
+/usr/local/hadoop-2.7.3/sbin/stop-dfs.sh
+/usr/local/hadoop-2.7.3/sbin/stop-yarn.sh
+
+ssh slave1
+sudo shutdown
+open
+exit
+ssh slave2
+sudo shutdown
+open
+exit
+ssh slave3
+sudo shutdown
+open
+exit
+sudo shutdown
+open
+exit
+
+
